@@ -19,6 +19,9 @@ class BlogTest(TestCase):
             author=self.user
         )
 
+    def test_get_absolute_url(self):
+        self.assertEqual(self.post.get_absolute_url(),'/post/1/')
+
     def test_spring_representation(self):
         post = Post(title='A good title')
         self.assertEqual(str(post),post.title)
@@ -41,3 +44,28 @@ class BlogTest(TestCase):
         self.assertEqual(no_response.status_code,404)
         self.assertContains(response,'the body content')
         self.assertTemplateUsed(response,'post_details.html')
+
+    def test_post_create_view(self):
+        response = self.client.post(reverse('post_new'), {
+            'title': 'A new post',
+            'body': 'a new body',
+            'author': self.user,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,'post_new.html')
+        self.assertContains(response,'a new body')
+        self.assertContains(response, 'A new post')
+
+    def test_post_update_view(self):
+        response = self.client.get(reverse('post_edit', args='1'),{
+            'title': 'Update title',
+            'body': 'update body'
+        })
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_delete_view(self):
+        response = self.client.get(reverse('post_delete',args='1'))
+        self.assertEqual(response.status_code, 200)
+
+
+
