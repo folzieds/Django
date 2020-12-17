@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="container" style="background-color: whitesmoke">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+            </form>
+        <br>
+        <p>Already have an account. <a href="{% url 'main_home' %}" style="text-decoration: none"><strong>Login</strong></a></p>
+    </div>
+
+{% endblock content %}

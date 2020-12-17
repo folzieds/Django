@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="row">
+        {% if count > 0 %}
+            {% for tutorial in tutorials %}
+            <div class="col-sm-4">
+              <div class="card border-dark">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ tutorial.tutorial_title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ tutorial.tutorial_published }}</h6>
+                    <p class="card-text">{{ tutorial.tutorial_content|safe }}</p>
+                  <div class="card-action">
+                      <a href="#" class="card-link"><button class="btn btn-outline-dark my-2 my-sm-0" type="submit">more...</button></a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color:whitesmoke; font-size: 1em;">No tutorial found!!!</p>
+        {% endif %}
+
+    </div>
+{% endblock content %}
